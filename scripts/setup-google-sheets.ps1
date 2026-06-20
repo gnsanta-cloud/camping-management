@@ -53,8 +53,8 @@ Write-Step 1 "Sync token generated"
 
 if (-not $SkipLogin) {
     Write-Step 2 "Google login (browser approval required once)"
-    Write-Host "Log in and allow access in the browser window." -ForegroundColor Yellow
-    & $Clasp login --no-localhost
+    Write-Host "Browser opens automatically. Click Allow / Continue." -ForegroundColor Yellow
+    & $Clasp login
 }
 
 Write-Step 3 "Create spreadsheet and Apps Script project"
