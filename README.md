@@ -7,12 +7,23 @@
 ### 한 번에 배포 (권장)
 
 1. [Git for Windows](https://git-scm.com/download/win) · [GitHub CLI](https://cli.github.com/) 설치
-2. PowerShell:
+2. 아래 **둘 중 하나** 실행:
+
+**방법 A — CMD 파일 (실행 정책 오류 없음, 권장)**
+
+```cmd
+cd d:\Camping
+publish-github.cmd
+```
+
+**방법 B — PowerShell**
 
 ```powershell
 cd d:\Camping
-.\scripts\publish-github.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-github.ps1
 ```
+
+> `.\scripts\publish-github.ps1`만 실행하면 **실행 정책(보안) 오류**가 날 수 있습니다. 위 방법을 사용하세요.
 
 3. 브라우저 GitHub 로그인 승인
 4. 배포 URL: `https://<GitHub아이디>.github.io/camping-management/`
@@ -49,6 +60,28 @@ git push -u origin main
 1. 위 HTTPS 주소를 Chrome/Safari에서 열기
 2. **홈 화면에 추가** / **앱 설치**
 3. 아이콘으로 실행
+
+## 사이트현황 PWA (스마트폰 앱처럼 사용)
+
+사이트현황만 **홈 화면에 설치**할 수 있는 별도 PWA입니다.
+
+**URL:** `https://<GitHub아이디>.github.io/camping-management/sites.html`
+
+### Android (Chrome)
+1. 위 주소 접속
+2. 메뉴 **⋮** → **앱 설치** 또는 **홈 화면에 추가**
+3. **사이트현황** 아이콘으로 실행
+
+### iPhone (Safari)
+1. 위 주소 접속
+2. **공유** → **홈 화면에 추가**
+
+### 기능
+- 날짜별 사이트 카드 · 예약 추가/수정/취소
+- 오프라인 캐시 (한 번 열어 둔 후 네트워크 없이도 화면 표시)
+- PC 웹과 **같은 브라우저 저장소**를 쓰면 데이터 공유 (같은 기기·같은 브라우저 프로필)
+
+> Capacitor Android 빌드(`mobile-sites/`) 대신 **PWA 방식**을 권장합니다.
 
 ## 로컬 테스트 (PWA 포함)
 

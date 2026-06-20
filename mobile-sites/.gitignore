@@ -1,0 +1,7 @@
+node_modules/
+web/
+android/
+.idea/
+*.iml
+local.properties
+.DS_Store

@@ -1,0 +1,21 @@
+{
+  "name": "camping-sites-android",
+  "version": "1.0.0",
+  "private": true,
+  "description": "캠핑장 사이트현황 Android 앱",
+  "scripts": {
+    "sync:web": "powershell -ExecutionPolicy Bypass -File ./scripts/sync-web.ps1",
+    "cap:sync": "npm run sync:web && npx cap sync android",
+    "cap:open": "npx cap open android",
+    "android:build": "npm run cap:sync && npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "6.2.0",
+    "@capacitor/core": "6.2.0",
+    "@capacitor/splash-screen": "6.0.3",
+    "@capacitor/status-bar": "6.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "6.2.0"
+  }
+}

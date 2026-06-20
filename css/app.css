@@ -91,6 +91,17 @@ body {
   font-weight: 600;
 }
 
+.nav-link {
+  display: block;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.nav-link:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
 .sidebar-footer {
   padding: 0.5rem;
   color: var(--muted);

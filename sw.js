@@ -1,14 +1,18 @@
-const CACHE_NAME = "camping-pwa-v1";
+const CACHE_NAME = "camping-pwa-v2";
 
 const PRECACHE = [
   "./",
   "./index.html",
+  "./sites.html",
   "./manifest.webmanifest",
+  "./sites-manifest.webmanifest",
   "./css/app.css",
+  "./css/mobile-sites.css",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./js/config.js",
   "./js/storage.js",
+  "./js/mobile-sites-app.js",
   "./js/excel-catalog.js",
   "./js/excel-import.js",
   "./js/categories.js",
@@ -24,6 +28,11 @@ const PRECACHE = [
 ];
 
 const CDN_ASSETS = ["https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"];
+
+const OFFLINE_PAGES = {
+  "/sites.html": "./sites.html",
+  "/index.html": "./index.html",
+};
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -58,9 +67,16 @@ self.addEventListener("fetch", (event) => {
 
   if (url.origin === self.location.origin) {
     event.respondWith(cacheFirst(request));
-    return;
   }
 });
+
+function offlineFallback(request) {
+  const path = new URL(request.url).pathname;
+  const base = path.substring(path.lastIndexOf("/"));
+  if (OFFLINE_PAGES[base]) return caches.match(OFFLINE_PAGES[base]);
+  if (path.includes("sites")) return caches.match("./sites.html");
+  return caches.match("./index.html");
+}
 
 async function cacheFirst(request) {
   const cached = await caches.match(request);
@@ -75,7 +91,8 @@ async function cacheFirst(request) {
     return response;
   } catch {
     if (request.mode === "navigate") {
-      return caches.match("./index.html");
+      const fallback = await offlineFallback(request);
+      if (fallback) return fallback;
     }
     throw new Error("offline");
   }

@@ -1,11 +1,12 @@
 {
-  "name": "캠핑장 관리",
-  "short_name": "캠핑장",
-  "description": "캠핑장 예약 · 매점 POS · 매출 통합 관리",
-  "start_url": "./index.html",
+  "name": "사이트현황",
+  "short_name": "사이트",
+  "description": "캠핑장 사이트 현황 · 예약 관리",
+  "start_url": "./sites.html",
   "scope": "./",
+  "id": "./sites.html",
   "display": "standalone",
-  "orientation": "any",
+  "orientation": "portrait-primary",
   "background_color": "#0f1410",
   "theme_color": "#1a2218",
   "lang": "ko",
@@ -27,15 +28,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "사이트현황",
-      "short_name": "사이트",
-      "description": "모바일 사이트 현황 PWA",
-      "url": "./sites.html",
-      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

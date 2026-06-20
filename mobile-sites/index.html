@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1a2218">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>사이트현황</title>
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div class="mobile-app">
+    <header class="mobile-header">
+      <div class="mobile-header-top">
+        <div>
+          <h1>🏕️ 사이트 현황</h1>
+          <p id="todayLabel"></p>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn sm" id="btnToday">오늘</button>
+          <input type="date" id="siteViewDate" class="input">
+        </div>
+      </div>
+      <div class="site-legend">
+        <span class="legend-item vacant">빈 사이트</span>
+        <span class="legend-item reserved">예약됨</span>
+        <span class="legend-item checked-in">입실완료</span>
+      </div>
+    </header>
+
+    <main class="mobile-main">
+      <div id="siteGroups"></div>
+    </main>
+
+    <footer class="mobile-footer">
+      사이트를 탭하면 예약 추가 · 수정
+    </footer>
+  </div>
+
+  <dialog id="reservationModal" class="modal">
+    <form id="reservationForm" method="dialog">
+      <div class="modal-header">
+        <h3 id="resModalTitle">예약 추가</h3>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <div class="modal-body grid-2">
+        <label>사이트번호
+          <select name="siteNumber" id="resSiteNumber" required></select>
+        </label>
+        <label>타입
+          <input name="type" id="resType" readonly>
+        </label>
+        <label>이용객
+          <input name="guest" required placeholder="이름">
+        </label>
+        <label>연락처
+          <input name="contact" required placeholder="010-0000-0000">
+        </label>
+        <label>입실일
+          <input type="date" name="checkInDate" required>
+        </label>
+        <label>몇박
+          <input type="number" name="nights" id="resNights" min="1" value="1" required>
+        </label>
+        <label>추가인원
+          <input type="number" name="extraGuests" id="resExtraGuests" min="0" value="0">
+          <small id="resExtraGuestHint" class="field-hint"></small>
+        </label>
+        <label>입금가
+          <input type="number" name="deposit" id="resDeposit" min="0" placeholder="0">
+        </label>
+        <label>결제여부
+          <select name="paid">
+            <option value="미결제">미결제</option>
+            <option value="완료">완료</option>
+            <option value="부분">부분</option>
+          </select>
+        </label>
+        <label>입실여부
+          <select name="checkedIn">
+            <option value="미입실">미입실</option>
+            <option value="입실완료">입실완료</option>
+            <option value="퇴실">퇴실</option>
+          </select>
+        </label>
+        <label class="full">특이사항
+          <textarea name="notes" rows="2" placeholder="특이사항"></textarea>
+        </label>
+        <label class="full">기타
+          <textarea name="etc" rows="2" placeholder="기타 메모"></textarea>
+        </label>
+      </div>
+      <div class="modal-footer modal-footer-split">
+        <button type="button" class="btn danger hidden" id="btnCancelReservation">예약 취소</button>
+        <div class="modal-footer-actions">
+          <button type="button" class="btn" data-close>닫기</button>
+          <button type="submit" class="btn primary">저장</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/reservations.js"></script>
+  <script src="js/mobile-app.js"></script>
+</body>
+</html>

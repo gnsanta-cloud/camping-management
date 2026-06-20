@@ -183,7 +183,7 @@ const Reservations = {
     showToast(this.editingId ? "예약이 수정되었습니다." : "예약이 등록되었습니다.");
     this.render();
     Sites.render();
-    App.renderDashboard();
+    if (typeof App !== "undefined") App.renderDashboard();
     if (typeof SalesDashboard !== "undefined") SalesDashboard.render();
   },
 
@@ -195,7 +195,7 @@ const Reservations = {
     showToast("예약이 취소되었습니다.");
     this.render();
     Sites.render();
-    App.renderDashboard();
+    if (typeof App !== "undefined") App.renderDashboard();
     if (typeof SalesDashboard !== "undefined") SalesDashboard.render();
   },
 

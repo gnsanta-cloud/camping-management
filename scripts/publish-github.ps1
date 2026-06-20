@@ -1,8 +1,6 @@
-# GitHub Pages 배포 스크립트
-# 사용법: PowerShell에서 프로젝트 루트 기준 실행
-#   cd d:\Camping
-#   .\scripts\publish-github.ps1
-#   .\scripts\publish-github.ps1 -RepoName "my-camping-app" -Private
+# GitHub Pages deploy script
+# Run: publish-github.cmd  (recommended)
+# Or:  powershell -ExecutionPolicy Bypass -File .\scripts\publish-github.ps1
 
 param(
     [string]$RepoName = "camping-management",
@@ -10,59 +8,101 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 $Root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Set-Location $Root
 
-function Ensure-Command($name) {
-    if (-not (Get-Command $name -ErrorAction SilentlyContinue)) {
-        throw "'$name' 이(가) 설치되어 있지 않습니다. Git / GitHub CLI를 먼저 설치하세요."
+function Add-ToolPaths {
+    $paths = @(
+        "$env:ProgramFiles\Git\cmd",
+        "$env:ProgramFiles\Git\bin",
+        "$env:ProgramFiles\GitHub CLI",
+        "$env:LocalAppData\Programs\Git\cmd",
+        "$env:LocalAppData\Programs\GitHub CLI"
+    )
+    foreach ($p in $paths) {
+        if (Test-Path $p) {
+            $env:Path = "$p;$env:Path"
+        }
     }
 }
 
-Ensure-Command git
-Ensure-Command gh
+function Require-Command($name) {
+    $cmd = Get-Command $name -ErrorAction SilentlyContinue
+    if (-not $cmd) {
+        Write-Host ""
+        Write-Host "[ERROR] '$name' command not found in PATH." -ForegroundColor Red
+        Write-Host "Install Git / GitHub CLI, then open a NEW terminal and retry." -ForegroundColor Yellow
+        Write-Host "  Git: https://git-scm.com/download/win" -ForegroundColor Gray
+        Write-Host "  GitHub CLI: https://cli.github.com/" -ForegroundColor Gray
+        Write-Host ""
+        Write-Host "Or run: publish-github.cmd" -ForegroundColor Cyan
+        exit 1
+    }
+}
 
-Write-Host "GitHub 로그인 상태 확인..." -ForegroundColor Cyan
+Add-ToolPaths
+Require-Command git
+Require-Command gh
+
+Write-Host "Checking GitHub login..." -ForegroundColor Cyan
+$loggedIn = $false
 try {
     gh auth status 2>$null | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "not logged in" }
+    if ($LASTEXITCODE -eq 0) { $loggedIn = $true }
 } catch {
-    Write-Host "GitHub 로그인이 필요합니다. 브라우저 창이 열리면 승인해 주세요." -ForegroundColor Yellow
+    $loggedIn = $false
+}
+
+if (-not $loggedIn) {
+    Write-Host "GitHub login required. Approve in the browser window." -ForegroundColor Yellow
     gh auth login --hostname github.com --git-protocol https --web
 }
 
 $user = gh api user --jq .login
-Write-Host "로그인 계정: $user" -ForegroundColor Green
+Write-Host "Logged in as: $user" -ForegroundColor Green
 
 if (-not (Test-Path ".git")) {
     git init
     git branch -M main
 }
 
-$hasCommit = git rev-parse HEAD 2>$null
+$hasCommit = $false
+try {
+    git rev-parse HEAD 2>$null | Out-Null
+    if ($LASTEXITCODE -eq 0) { $hasCommit = $true }
+} catch {
+    $hasCommit = $false
+}
+
 if (-not $hasCommit) {
     git add .
     git -c user.name="$user" -c user.email="$user@users.noreply.github.com" commit -m "Add camping management PWA"
 }
 
-$remote = git remote get-url origin 2>$null
+$remote = $null
+if ((git remote 2>$null) -contains "origin") {
+    $remote = git remote get-url origin
+}
 if (-not $remote) {
     $visibility = if ($Private) { "--private" } else { "--public" }
-    Write-Host "저장소 생성: $user/$RepoName" -ForegroundColor Cyan
-    gh repo create $RepoName $visibility --source=. --remote=origin --description "캠핑장 예약·매점 POS·매출 관리 PWA"
+    Write-Host "Creating repository: $user/$RepoName" -ForegroundColor Cyan
+    gh repo create $RepoName $visibility --source=. --remote=origin --description "Camping site management PWA"
 }
 
-Write-Host "GitHub에 push..." -ForegroundColor Cyan
+Write-Host "Pushing to GitHub..." -ForegroundColor Cyan
 git push -u origin main
 
-Write-Host "GitHub Pages 활성화..." -ForegroundColor Cyan
+Write-Host "Enabling GitHub Pages..." -ForegroundColor Cyan
 gh api "repos/$user/$RepoName/pages" -X POST -f "build_type=legacy" -f "source[branch]=main" -f "source[path]=/" 2>$null
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "Pages API 호출 실패 — GitHub 웹에서 Settings > Pages > main / (root) 로 설정하세요." -ForegroundColor Yellow
+    Write-Host "Pages API failed. Set manually: Settings > Pages > main / (root)" -ForegroundColor Yellow
 }
 
 $pagesUrl = "https://$user.github.io/$RepoName/"
 Write-Host ""
-Write-Host "완료!" -ForegroundColor Green
-Write-Host "Pages URL (1~3분 후 접속): $pagesUrl" -ForegroundColor Green
-Write-Host "PWA 설치: 위 주소를 스마트폰 Chrome/Safari에서 열고 '홈 화면에 추가'" -ForegroundColor Cyan
+Write-Host "Done!" -ForegroundColor Green
+Write-Host "Pages URL (wait 1-3 min): $pagesUrl" -ForegroundColor Green
+Write-Host "On phone: open URL in Chrome/Safari > Add to Home Screen" -ForegroundColor Cyan
