@@ -61,12 +61,14 @@ git push -u origin main
 2. **홈 화면에 추가** / **앱 설치**
 3. 아이콘으로 실행
 
-## JSONBin 자동 동기화 (PC · 스마트폰)
+## Google 시트 자동 동기화 (PC · 스마트폰)
 
-`JSONBIN_SETUP.md` 참고 — **Bin ID + Access Key**만 입력하면 PC·폰 데이터가 자동 동기화됩니다.
+`GOOGLE_SHEETS_SETUP.md` 참고 — **Google 스프레드시트 + Apps Script** 로 PC·폰 데이터를 공유합니다.
 
-- 설정 → **JSONBin 동기화** → 연결
-- 폰(sites.html)에서도 **같은 Bin ID·Key** 입력
+- Google 시트 1개 + 스크립트 붙여넣기 (약 10분)
+- 설정 → **Google 시트 동기화** → 웹 앱 URL + 토큰 입력
+- 폰(sites.html) **☁️** 버튼에서도 같은 값 입력
+- **예약** 탭에 예약 목록 자동 표시
 
 미연결 시 **localStorage**만 사용합니다.
 

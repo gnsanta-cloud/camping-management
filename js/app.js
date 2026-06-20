@@ -42,17 +42,17 @@ const App = {
 
     this.renderAll();
     this.registerServiceWorker();
-    this.updateJsonBinSettings();
+    this.updateSheetsSettings();
     window.addEventListener("camping-data-sync", () => this.onDataSync());
   },
 
-  updateJsonBinSettings() {
-    const connected = JSONBinSync.isConfigured();
-    const desc = document.getElementById("jsonbinSettingsDesc");
+  updateSheetsSettings() {
+    const connected = SheetsSync.isConfigured();
+    const desc = document.getElementById("sheetsSettingsDesc");
     if (desc) {
       desc.textContent = connected
-        ? "JSONBin에 연결됨 — PC·폰에서 같은 Bin ID·Key를 사용하세요."
-        : "Bin ID와 Access Key를 입력하면 PC·폰 데이터가 자동 동기화됩니다.";
+        ? "Google 시트에 연결됨 — PC·폰에서 같은 URL·토큰을 사용하세요."
+        : "웹 앱 URL과 동기화 토큰을 입력하면 PC·폰 데이터가 자동 동기화됩니다.";
     }
   },
 
@@ -65,7 +65,7 @@ const App = {
     if (typeof SalesDashboard !== "undefined") SalesDashboard.render();
     if (typeof DailySales !== "undefined") DailySales.render();
     if (typeof POS !== "undefined") POS.render();
-    this.updateJsonBinSettings();
+    this.updateSheetsSettings();
   },
 
   registerServiceWorker() {
@@ -211,6 +211,6 @@ function showToast(msg) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await JSONBinSync.bootstrap();
+  await SheetsSync.bootstrap();
   App.init();
 });

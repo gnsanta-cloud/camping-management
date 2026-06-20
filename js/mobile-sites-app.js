@@ -53,7 +53,7 @@ const MobileApp = {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await JSONBinSync.bootstrap();
+  await SheetsSync.bootstrap();
   MobileApp.init();
 });
 

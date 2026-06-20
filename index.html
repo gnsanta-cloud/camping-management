@@ -359,21 +359,21 @@
           <p>데이터 백업 및 복원</p>
         </header>
         <div class="settings-grid">
-          <div class="panel" id="jsonbinSettingsPanel">
-            <h3>JSONBin 동기화</h3>
-            <p id="jsonbinSettingsDesc">PC·스마트폰 데이터 자동 동기화 (Bin ID + Access Key)</p>
-            <form id="jsonbinSettingsForm" class="jsonbin-form">
-              <label>Bin ID<input name="binId" id="jsonbinBinId" class="input" placeholder="예: 65abc123..." autocomplete="off"></label>
-              <label>Access Key<input name="accessKey" id="jsonbinAccessKey" class="input" type="password" placeholder="JSONBin Access Key" autocomplete="off"></label>
-              <div class="jsonbin-form-actions">
+          <div class="panel" id="sheetsSettingsPanel">
+            <h3>Google 시트 동기화</h3>
+            <p id="sheetsSettingsDesc">PC·스마트폰 데이터를 Google 스프레드시트로 자동 동기화</p>
+            <form id="sheetsSettingsForm" class="sync-form">
+              <label>웹 앱 URL<input name="webAppUrl" id="sheetsWebAppUrl" class="input" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off"></label>
+              <label>동기화 토큰<input name="syncToken" id="sheetsSyncToken" class="input" type="password" placeholder="Apps Script SYNC_TOKEN 과 동일" autocomplete="off"></label>
+              <div class="sync-form-actions">
                 <button type="submit" class="btn primary">연결</button>
-                <button type="button" class="btn" id="btnJsonBinPull">지금 불러오기</button>
-                <button type="button" class="btn" id="btnJsonBinPush">지금 업로드</button>
-                <button type="button" class="btn danger" id="btnJsonBinDisconnect">연결 해제</button>
+                <button type="button" class="btn" id="btnSheetsPull">지금 불러오기</button>
+                <button type="button" class="btn" id="btnSheetsPush">지금 업로드</button>
+                <button type="button" class="btn danger" id="btnSheetsDisconnect">연결 해제</button>
               </div>
             </form>
-            <p class="sync-email" id="jsonbinLastSync"></p>
-            <p class="field-hint">설정 방법: JSONBIN_SETUP.md · <a href="https://jsonbin.io" target="_blank" rel="noopener">jsonbin.io</a></p>
+            <p class="sync-email" id="sheetsLastSync"></p>
+            <p class="field-hint">설정 방법: GOOGLE_SHEETS_SETUP.md · <a href="https://sheets.google.com" target="_blank" rel="noopener">Google Sheets</a></p>
           </div>
           <div class="panel">
             <h3>데이터 백업</h3>
@@ -558,11 +558,11 @@
 
   <div id="toast" class="toast"></div>
 
-  <script src="js/jsonbin-config.js"></script>
+  <script src="js/sheets-config.js"></script>
   <script src="js/excel-catalog.js"></script>
   <script src="js/config.js"></script>
   <script src="js/storage.js"></script>
-  <script src="js/jsonbin-sync.js"></script>
+  <script src="js/sheets-sync.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="js/excel-import.js"></script>
   <script src="js/categories.js"></script>
