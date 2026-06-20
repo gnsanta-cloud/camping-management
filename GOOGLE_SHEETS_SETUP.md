@@ -4,7 +4,17 @@ PC·스마트폰에서 **같은 예약·매출·상품 데이터**를 Google 시
 
 ---
 
-## 1. Google 시트 만들기
+## 빠른 설정 (자동 — 권장)
+
+1. `d:\Camping\setup-google-sheets.cmd` **더블클릭**
+2. Google 로그인 **허용** (최초 1회)
+3. 브라우저 주소창에 나온 URL **복사 → PowerShell 창에 붙여넣기 → Enter**
+4. 완료 후 **URL + 토큰**이 클립보드에 복사됨
+5. 캠핑장 앱 **설정 → Google 시트 동기화**에 붙여넣기 → **연결**
+
+---
+
+## 수동 설정
 
 1. [Google Sheets](https://sheets.google.com) → **빈 스프레드시트** 생성
 2. 이름 예: `캠핑장관리-동기화`

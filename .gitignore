@@ -1,6 +1,9 @@
 .env
 .env.*
 !.env.example
+.sheets-sync.local.json
+google-apps-script/.clasp.json
+google-apps-script/Code.gs
 
 # 원본 엑셀·추출 데이터 (민감/용량)
 *.xlsx
@@ -13,3 +16,4 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+node_modules/
