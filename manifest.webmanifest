@@ -28,14 +28,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "shortcuts": [
-    {
-      "name": "사이트현황",
-      "short_name": "사이트",
-      "description": "모바일 사이트 현황 PWA",
-      "url": "./sites.html",
-      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
-    }
   ]
 }

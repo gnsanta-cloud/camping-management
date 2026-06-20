@@ -28,7 +28,6 @@
       <nav class="nav">
         <button class="nav-btn active" data-view="dashboard">📊 대시보드</button>
         <button class="nav-btn" data-view="sites">🏕️ 사이트현황</button>
-        <a class="nav-btn nav-link" href="./sites.html" target="_blank" rel="noopener">📱 사이트 PWA</a>
         <button class="nav-btn" data-view="site-admin">⚙️ 사이트관리</button>
         <button class="nav-btn" data-view="pos">🛒 매점 POS</button>
         <button class="nav-btn" data-view="products">📦 상품관리</button>
@@ -159,12 +158,12 @@
         <header class="page-header row">
           <div>
             <h2>매점 POS</h2>
-            <p>상품 선택 후 결제 · 일자 변경으로 과거 매출 입력 가능</p>
+            <p>상품 선택 후 결제 · 매출 일자 기본 오늘 (과거·미래 변경 가능)</p>
           </div>
           <div class="header-actions">
             <label class="pos-date-label">
               매출 일자
-              <input type="date" id="posSaleDate" class="input">
+              <input type="date" id="posSaleDate" class="input" autocomplete="off" required>
             </label>
             <input type="search" id="posSearch" class="input" placeholder="상품 검색">
           </div>
