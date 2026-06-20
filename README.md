@@ -61,6 +61,17 @@ git push -u origin main
 2. **홈 화면에 추가** / **앱 설치**
 3. 아이콘으로 실행
 
+## Firebase 자동 동기화 (PC · 스마트폰)
+
+`FIREBASE_SETUP.md` 참고 — Firebase 설정 후 **같은 계정**으로 로그인하면 데이터가 실시간 동기화됩니다.
+
+| URL | 용도 |
+|-----|------|
+| `/index.html` | 전체 관리 + Firebase |
+| `/sites.html` | 사이트현황 PWA + Firebase |
+
+설정 전에는 기존처럼 **localStorage**만 사용합니다.
+
 ## 사이트현황 PWA (스마트폰 앱처럼 사용)
 
 사이트현황만 **홈 화면에 설치**할 수 있는 별도 PWA입니다.

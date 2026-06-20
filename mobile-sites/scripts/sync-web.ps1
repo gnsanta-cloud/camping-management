@@ -14,7 +14,7 @@ Copy-Item (Join-Path $Root "css\mobile.css") (Join-Path $Web "css\mobile.css")
 Copy-Item (Join-Path $Camping "css\app.css") (Join-Path $Web "css\app.css")
 Copy-Item (Join-Path $Root "js\mobile-app.js") (Join-Path $Web "js\mobile-app.js")
 
-$jsFiles = @("config.js", "storage.js", "reservations.js")
+$jsFiles = @("config.js", "storage.js", "reservations.js", "firebase-config.js", "firebase-sync.js")
 foreach ($f in $jsFiles) {
     Copy-Item (Join-Path $Camping "js\$f") (Join-Path $Web "js\$f")
 }

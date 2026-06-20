@@ -1,7 +1,5 @@
 const MobileApp = {
   init() {
-    Storage.init();
-
     const today = todayStr();
     const todayLabel = document.getElementById("todayLabel");
     if (todayLabel) {
@@ -29,6 +27,11 @@ const MobileApp = {
     Sites.init();
     Sites.render();
     this.registerServiceWorker();
+    window.addEventListener("camping-data-sync", () => this.onDataSync());
+  },
+
+  onDataSync() {
+    Sites.render();
   },
 
   registerServiceWorker() {
@@ -45,7 +48,10 @@ const MobileApp = {
   },
 };
 
-document.addEventListener("DOMContentLoaded", () => MobileApp.init());
+document.addEventListener("DOMContentLoaded", async () => {
+  await FirebaseSync.bootstrap();
+  MobileApp.init();
+});
 
 function showToast(msg) {
   const toast = document.getElementById("toast");

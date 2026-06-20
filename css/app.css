@@ -102,7 +102,73 @@ body {
   color: var(--text);
 }
 
+.sync-status[data-tone="ok"] { color: var(--success); }
+.sync-status[data-tone="syncing"] { color: var(--accent); }
+.sync-status[data-tone="warn"] { color: var(--warning); }
+.sync-status[data-tone="muted"] { color: var(--muted); }
+
+.sync-email {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.5rem 0;
+}
+
+.firebase-auth {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.firebase-auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  width: min(400px, 100%);
+  box-shadow: var(--shadow);
+}
+
+.firebase-auth-card h2 {
+  margin-bottom: 0.35rem;
+}
+
+.firebase-auth-card > p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.firebase-auth-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.firebase-auth-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.firebase-auth-error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  min-height: 1.2em;
+}
+
 .sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
   padding: 0.5rem;
   color: var(--muted);
   font-size: 0.8rem;

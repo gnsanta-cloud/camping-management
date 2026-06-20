@@ -39,6 +39,7 @@
       </nav>
       <div class="sidebar-footer">
         <small id="todayLabel"></small>
+        <small id="firebaseSyncStatus" class="sync-status" data-tone="muted">로컬 저장</small>
       </div>
     </aside>
 
@@ -358,6 +359,12 @@
           <p>데이터 백업 및 복원</p>
         </header>
         <div class="settings-grid">
+          <div class="panel" id="firebaseSettingsPanel">
+            <h3>Firebase 동기화</h3>
+            <p id="firebaseSettingsDesc">PC·스마트폰 데이터를 Firebase로 자동 동기화합니다.</p>
+            <p class="sync-email" id="firebaseUserEmail"></p>
+            <button class="btn" id="firebaseLogoutBtn" type="button">로그아웃</button>
+          </div>
           <div class="panel">
             <h3>데이터 백업</h3>
             <p>예약, 상품, 매출 데이터를 JSON 파일로 내보냅니다.</p>
@@ -541,10 +548,31 @@
 
   <div id="toast" class="toast"></div>
 
-  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <div id="firebaseAuthOverlay" class="firebase-auth hidden">
+    <div class="firebase-auth-card">
+      <h2>캠핑장 로그인</h2>
+      <p>PC·스마트폰 데이터 자동 동기화 (Firebase)</p>
+      <form id="firebaseAuthForm">
+        <label>이메일<input type="email" id="firebaseEmail" class="input" autocomplete="username" required></label>
+        <label>비밀번호<input type="password" id="firebasePassword" class="input" autocomplete="current-password" required></label>
+        <p id="firebaseAuthError" class="firebase-auth-error"></p>
+        <div class="firebase-auth-actions">
+          <button type="submit" class="btn primary">로그인</button>
+          <button type="button" class="btn" id="firebaseRegisterBtn">계정 만들기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
   <script src="js/excel-catalog.js"></script>
   <script src="js/config.js"></script>
   <script src="js/storage.js"></script>
+  <script src="js/firebase-sync.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="js/excel-import.js"></script>
   <script src="js/categories.js"></script>
   <script src="js/reservations.js"></script>

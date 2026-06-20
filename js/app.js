@@ -1,7 +1,5 @@
 const App = {
   init() {
-    Storage.init();
-
     const today = todayStr();
     document.getElementById("todayLabel").textContent = new Date().toLocaleDateString("ko-KR", {
       year: "numeric",
@@ -44,6 +42,42 @@ const App = {
 
     this.renderAll();
     this.registerServiceWorker();
+    this.updateFirebaseSettings();
+    window.addEventListener("camping-data-sync", () => this.onDataSync());
+  },
+
+  updateFirebaseSettings() {
+    const panel = document.getElementById("firebaseSettingsPanel");
+    const emailEl = document.getElementById("firebaseUserEmail");
+    const logoutBtn = document.getElementById("firebaseLogoutBtn");
+    if (!panel) return;
+
+    if (!FirebaseSync.isConfigured()) {
+      const desc = document.getElementById("firebaseSettingsDesc");
+      if (desc) {
+        desc.textContent =
+          "Firebase 미설정 — js/firebase-config.js 를 설정하면 PC·폰 자동 동기화가 활성화됩니다.";
+      }
+      if (logoutBtn) logoutBtn.classList.add("hidden");
+      if (emailEl) emailEl.textContent = "";
+      return;
+    }
+
+    const user = typeof firebase !== "undefined" ? firebase.auth()?.currentUser : null;
+    if (emailEl) emailEl.textContent = user ? `로그인: ${user.email}` : "";
+    if (logoutBtn) logoutBtn.classList.toggle("hidden", !user);
+  },
+
+  onDataSync() {
+    this.renderDashboard();
+    Sites.render();
+    if (typeof SiteAdmin !== "undefined") SiteAdmin.render();
+    if (typeof Products !== "undefined") Products.render();
+    if (typeof SalesView !== "undefined") SalesView.render();
+    if (typeof SalesDashboard !== "undefined") SalesDashboard.render();
+    if (typeof DailySales !== "undefined") DailySales.render();
+    if (typeof POS !== "undefined") POS.render();
+    this.updateFirebaseSettings();
   },
 
   registerServiceWorker() {
@@ -188,4 +222,7 @@ function showToast(msg) {
   showToast._timer = setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
-document.addEventListener("DOMContentLoaded", () => App.init());
+document.addEventListener("DOMContentLoaded", async () => {
+  await FirebaseSync.bootstrap();
+  App.init();
+});

@@ -111,8 +111,29 @@
 
   <div id="toast" class="toast"></div>
 
+  <div id="firebaseAuthOverlay" class="firebase-auth hidden">
+    <div class="firebase-auth-card">
+      <h2>캠핑장 로그인</h2>
+      <p>PC·스마트폰 데이터 자동 동기화</p>
+      <form id="firebaseAuthForm">
+        <label>이메일<input type="email" id="firebaseEmail" class="input" required></label>
+        <label>비밀번호<input type="password" id="firebasePassword" class="input" required></label>
+        <p id="firebaseAuthError" class="firebase-auth-error"></p>
+        <div class="firebase-auth-actions">
+          <button type="submit" class="btn primary">로그인</button>
+          <button type="button" class="btn" id="firebaseRegisterBtn">계정 만들기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
   <script src="js/config.js"></script>
   <script src="js/storage.js"></script>
+  <script src="js/firebase-sync.js"></script>
   <script src="js/reservations.js"></script>
   <script src="js/mobile-sites-app.js"></script>
 </body>
