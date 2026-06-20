@@ -1,0 +1,887 @@
+const LEGACY_SALES = [
+    {
+        "id":  "legacy-1",
+        "date":  "2025-10-24",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  465500,
+        "received":  465500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 10월",
+        "createdAt":  "2025-10-24T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-2",
+        "date":  "2025-10-25",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  383500,
+        "received":  383500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 10월",
+        "createdAt":  "2025-10-25T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-3",
+        "date":  "2025-10-26",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  172500,
+        "received":  172500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 10월",
+        "createdAt":  "2025-10-26T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-4",
+        "date":  "2025-10-27",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  3000,
+        "received":  3000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 10월",
+        "createdAt":  "2025-10-27T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-5",
+        "date":  "2025-10-30",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  88000,
+        "received":  88000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 10월",
+        "createdAt":  "2025-10-30T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-6",
+        "date":  "2025-10-31",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  119500,
+        "received":  119500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 10월",
+        "createdAt":  "2025-10-31T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-7",
+        "date":  "2025-11-01",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  450000,
+        "received":  450000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-01T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-8",
+        "date":  "2025-11-02",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  69500,
+        "received":  69500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-02T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-9",
+        "date":  "2025-11-06",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  24000,
+        "received":  24000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-06T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-10",
+        "date":  "2025-11-07",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  195000,
+        "received":  195000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-07T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-11",
+        "date":  "2025-11-08",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  609500,
+        "received":  609500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-08T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-12",
+        "date":  "2025-11-09",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  34000,
+        "received":  34000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-09T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-13",
+        "date":  "2025-11-13",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  55000,
+        "received":  55000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-13T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-14",
+        "date":  "2025-11-14",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  214000,
+        "received":  214000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-14T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-15",
+        "date":  "2025-11-15",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  269000,
+        "received":  269000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-15T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-16",
+        "date":  "2025-11-16",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  24000,
+        "received":  24000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-16T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-17",
+        "date":  "2025-11-20",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  8000,
+        "received":  8000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-20T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-18",
+        "date":  "2025-11-21",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  141500,
+        "received":  141500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-21T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-19",
+        "date":  "2025-11-22",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  361000,
+        "received":  361000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-22T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-20",
+        "date":  "2025-11-28",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  77500,
+        "received":  77500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-28T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-21",
+        "date":  "2025-11-29",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  367000,
+        "received":  367000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-29T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-22",
+        "date":  "2025-11-30",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  2000,
+        "received":  2000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 11월",
+        "createdAt":  "2025-11-30T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-23",
+        "date":  "2025-12-05",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  31000,
+        "received":  31000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-05T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-24",
+        "date":  "2025-12-06",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  178000,
+        "received":  178000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-06T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-25",
+        "date":  "2025-12-07",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  7000,
+        "received":  7000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-07T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-26",
+        "date":  "2025-12-13",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  26000,
+        "received":  26000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-13T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-27",
+        "date":  "2025-12-19",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  60000,
+        "received":  60000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-19T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-28",
+        "date":  "2025-12-20",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  166500,
+        "received":  166500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-20T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-29",
+        "date":  "2025-12-22",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  112500,
+        "received":  112500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-22T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-30",
+        "date":  "2025-12-24",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  21000,
+        "received":  21000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-24T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-31",
+        "date":  "2025-12-25",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  62500,
+        "received":  62500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-25T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-32",
+        "date":  "2025-12-26",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  121500,
+        "received":  121500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-26T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-33",
+        "date":  "2025-12-27",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  247500,
+        "received":  247500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-27T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-34",
+        "date":  "2025-12-31",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  168000,
+        "received":  168000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 12월임",
+        "createdAt":  "2025-12-31T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-35",
+        "date":  "2026-01-01",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  304500,
+        "received":  304500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 1월",
+        "createdAt":  "2026-01-01T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-36",
+        "date":  "2026-01-02",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  206500,
+        "received":  206500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 1월",
+        "createdAt":  "2026-01-02T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-37",
+        "date":  "2026-01-03",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  87000,
+        "received":  87000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 1월",
+        "createdAt":  "2026-01-03T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-38",
+        "date":  "2026-02-14",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  149500,
+        "received":  149500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 2월",
+        "createdAt":  "2026-02-14T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-39",
+        "date":  "2026-02-15",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  106000,
+        "received":  106000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 2월",
+        "createdAt":  "2026-02-15T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-40",
+        "date":  "2026-02-16",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  75500,
+        "received":  75500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 2월",
+        "createdAt":  "2026-02-16T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-41",
+        "date":  "2026-02-20",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  63500,
+        "received":  63500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 2월",
+        "createdAt":  "2026-02-20T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-42",
+        "date":  "2026-02-21",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  141500,
+        "received":  141500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 2월",
+        "createdAt":  "2026-02-21T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-43",
+        "date":  "2026-02-28",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  205000,
+        "received":  205000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 2월",
+        "createdAt":  "2026-02-28T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-44",
+        "date":  "2026-03-29",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  46500,
+        "received":  46500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 3월",
+        "createdAt":  "2026-03-29T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-45",
+        "date":  "2026-04-24",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  68000,
+        "received":  68000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 4월",
+        "createdAt":  "2026-04-24T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-46",
+        "date":  "2026-04-25",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  510500,
+        "received":  510500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 4월",
+        "createdAt":  "2026-04-25T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-47",
+        "date":  "2026-04-26",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  159000,
+        "received":  159000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 4월",
+        "createdAt":  "2026-04-26T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-48",
+        "date":  "2026-05-28",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  104500,
+        "received":  104500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 5월",
+        "createdAt":  "2026-05-28T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-49",
+        "date":  "2026-05-29",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  282000,
+        "received":  282000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 5월",
+        "createdAt":  "2026-05-29T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-50",
+        "date":  "2026-05-30",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  607500,
+        "received":  607500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 5월",
+        "createdAt":  "2026-05-30T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-51",
+        "date":  "2026-05-31",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  111000,
+        "received":  111000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점 5월",
+        "createdAt":  "2026-05-31T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-52",
+        "date":  "2026-06-05",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  174500,
+        "received":  174500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점6월",
+        "createdAt":  "2026-06-05T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-53",
+        "date":  "2026-06-06",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  544000,
+        "received":  544000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점6월",
+        "createdAt":  "2026-06-06T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-54",
+        "date":  "2026-06-07",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  103000,
+        "received":  103000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점6월",
+        "createdAt":  "2026-06-07T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-55",
+        "date":  "2026-06-12",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  124000,
+        "received":  124000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점6월",
+        "createdAt":  "2026-06-12T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-56",
+        "date":  "2026-06-13",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  302500,
+        "received":  302500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점6월",
+        "createdAt":  "2026-06-13T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-57",
+        "date":  "2026-06-14",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  51500,
+        "received":  51500,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점6월",
+        "createdAt":  "2026-06-14T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-58",
+        "date":  "2026-06-19",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  44000,
+        "received":  44000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점6월",
+        "createdAt":  "2026-06-19T12:00:00.000Z"
+    },
+    {
+        "id":  "legacy-59",
+        "date":  "2026-06-20",
+        "time":  "excel",
+        "items":  [
+
+                  ],
+        "total":  28000,
+        "received":  28000,
+        "change":  0,
+        "source":  "excel",
+        "legacy":  true,
+        "sheet":  "매점6월",
+        "createdAt":  "2026-06-20T12:00:00.000Z"
+    }
+];

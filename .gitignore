@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+
+# 원본 엑셀·추출 데이터 (민감/용량)
+*.xlsx
+*.xls
+extract.json
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

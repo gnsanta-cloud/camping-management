@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="캠핑장 예약 · 매점 POS · 매출 통합 관리">
+  <meta name="theme-color" content="#1a2218">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="캠핑장">
+  <title>캠핑장 관리 시스템</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-icon">🏕️</span>
+        <div>
+          <h1>캠핑장 관리</h1>
+          <p>예약 · 매점 통합</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-btn active" data-view="dashboard">📊 대시보드</button>
+        <button class="nav-btn" data-view="sites">🏕️ 사이트현황</button>
+        <button class="nav-btn" data-view="site-admin">⚙️ 사이트관리</button>
+        <button class="nav-btn" data-view="pos">🛒 매점 POS</button>
+        <button class="nav-btn" data-view="products">📦 상품관리</button>
+        <button class="nav-btn" data-view="sales-dashboard">📈 매출대시보드</button>
+        <button class="nav-btn" data-view="daily-sales">🧾 매점매출상세</button>
+        <button class="nav-btn" data-view="sales">💰 매출내역</button>
+        <button class="nav-btn" data-view="settings">⚙️ 설정</button>
+      </nav>
+      <div class="sidebar-footer">
+        <small id="todayLabel"></small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- 대시보드 -->
+      <section id="view-dashboard" class="view active">
+        <header class="page-header">
+          <h2>대시보드</h2>
+          <p>오늘의 캠핑장 운영 현황</p>
+        </header>
+        <div class="stats-grid" id="dashboardStats"></div>
+        <div class="panel-grid">
+          <div class="panel">
+            <h3>오늘 입실 예정</h3>
+            <div id="todayCheckins" class="list-box"></div>
+          </div>
+          <div class="panel">
+            <h3>미결제 예약</h3>
+            <div id="unpaidList" class="list-box"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 사이트현황 -->
+      <section id="view-sites" class="view">
+        <header class="page-header row">
+          <div>
+            <h2>사이트 현황</h2>
+            <p>렌탈 9 · 오토 22 · 디럭스 3</p>
+          </div>
+          <input type="date" id="siteViewDate" class="input">
+        </header>
+        <div class="site-legend">
+          <span class="legend-item vacant">빈 사이트</span>
+          <span class="legend-item reserved">예약됨</span>
+          <span class="legend-item checked-in">입실완료</span>
+        </div>
+        <div id="siteGroups"></div>
+      </section>
+
+      <!-- 사이트관리 -->
+      <section id="view-site-admin" class="view">
+        <header class="page-header row">
+          <div>
+            <h2>사이트 관리</h2>
+            <p>타입 · 사이트번호 · 가격 · 추가인원 · 사용여부</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn" id="btnAddSiteType">+ 타입</button>
+            <button class="btn primary" id="btnAddSite">+ 사이트</button>
+          </div>
+        </header>
+        <div class="sub-tabs">
+          <button class="site-admin-tab product-tab active" data-tab="sites">사이트 목록</button>
+          <button class="site-admin-tab product-tab" data-tab="types">타입 관리</button>
+          <button class="site-admin-tab product-tab" data-tab="extra-guests">추가인원 관리</button>
+        </div>
+        <div id="siteTabSites">
+          <div class="filter-bar">
+            <select id="siteAdminFilter" class="input">
+              <option value="">전체 타입</option>
+              <option value="렌탈">렌탈</option>
+              <option value="오토">오토</option>
+              <option value="디럭스">디럭스</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>사이트번호</th>
+                  <th>타입</th>
+                  <th>가격</th>
+                  <th>사용여부</th>
+                  <th>관리</th>
+                </tr>
+              </thead>
+              <tbody id="siteAdminBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="siteTabTypes" class="hidden">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>타입명</th>
+                  <th>사이트 수</th>
+                  <th>관리</th>
+                </tr>
+              </thead>
+              <tbody id="siteTypeBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="siteTabExtraGuests" class="hidden">
+          <p class="tab-desc">타입별 추가인원 1명당 1박 추가요금입니다. 사이트현황 예약 시 입금가에 자동 반영됩니다.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>타입</th>
+                  <th>추가인원당 금액 (1박)</th>
+                </tr>
+              </thead>
+              <tbody id="extraGuestBody"></tbody>
+            </table>
+          </div>
+          <div class="tab-actions">
+            <button class="btn primary" id="btnSaveExtraGuestPrices">설정 저장</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 매점 POS -->
+      <section id="view-pos" class="view">
+        <header class="page-header row">
+          <div>
+            <h2>매점 POS</h2>
+            <p>상품 선택 후 결제 · 일자 변경으로 과거 매출 입력 가능</p>
+          </div>
+          <div class="header-actions">
+            <label class="pos-date-label">
+              매출 일자
+              <input type="date" id="posSaleDate" class="input">
+            </label>
+            <input type="search" id="posSearch" class="input" placeholder="상품 검색">
+          </div>
+        </header>
+        <div class="pos-layout">
+          <div class="pos-products">
+            <div class="category-tabs" id="posCategories"></div>
+            <div class="product-grid" id="posProductGrid"></div>
+          </div>
+          <div class="pos-cart">
+            <h3>주문 내역</h3>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-summary">
+              <div class="cart-row"><span>합계</span><strong id="cartTotal">0원</strong></div>
+              <div class="cart-row"><span>받은 금액</span><input type="number" id="receivedAmount" class="input" min="0" placeholder="0"></div>
+              <div class="cart-row"><span>거스름돈</span><strong id="changeAmount">0원</strong></div>
+            </div>
+            <div class="cart-actions">
+              <button class="btn" id="btnClearCart">초기화</button>
+              <button class="btn primary" id="btnCheckout">결제 완료</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 상품관리 -->
+      <section id="view-products" class="view">
+        <header class="page-header row">
+          <div>
+            <h2>상품관리</h2>
+            <p>매점 상품 · 카테고리 · 엑셀 매출 가져오기</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn" id="btnImportExcel">엑셀 전체 가져오기</button>
+            <button class="btn" id="btnAddCategory">+ 카테고리</button>
+            <button class="btn primary" id="btnAddProduct">+ 상품 추가</button>
+          </div>
+        </header>
+        <div class="sub-tabs">
+          <button class="product-tab active" data-tab="products">상품 목록</button>
+          <button class="product-tab" data-tab="categories">카테고리 관리</button>
+        </div>
+        <div id="productTabProducts">
+          <div class="filter-bar">
+            <select id="productCategoryFilter" class="input"></select>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>카테고리</th>
+                  <th>상품명</th>
+                  <th>가격</th>
+                  <th>비고</th>
+                  <th>관리</th>
+                </tr>
+              </thead>
+              <tbody id="productBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="productTabCategories" class="hidden">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>카테고리명</th>
+                  <th>상품 수</th>
+                  <th>관리</th>
+                </tr>
+              </thead>
+              <tbody id="categoryBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 매출대시보드 -->
+      <section id="view-sales-dashboard" class="view">
+        <header class="page-header row">
+          <div>
+            <h2>매출 대시보드</h2>
+            <p id="sdDashboardDesc">사이트 + 매점 합산 — 캘린더 / 월별</p>
+          </div>
+          <div class="header-actions">
+            <div class="sub-tabs sd-category-tabs">
+              <button type="button" class="sd-category-tab product-tab" data-category="site">🏕️ 사이트</button>
+              <button type="button" class="sd-category-tab product-tab" data-category="store">🛒 매점</button>
+              <button type="button" class="sd-category-tab product-tab active" data-category="combined">📊 통합</button>
+            </div>
+            <div class="sub-tabs sd-mode-tabs">
+              <button type="button" class="sd-mode-tab product-tab active" data-mode="calendar">📅 캘린더</button>
+              <button type="button" class="sd-mode-tab product-tab" data-mode="monthly">📊 월별</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="sd-toolbar">
+          <button type="button" class="btn" id="sdPrev">◀</button>
+          <span class="sd-period-label" id="sdPeriodLabel"></span>
+          <button type="button" class="btn" id="sdNext">▶</button>
+          <button type="button" class="btn" id="sdToday">오늘</button>
+          <select class="input" id="sdYearSelect"></select>
+        </div>
+
+        <div class="stats-grid" id="sdSummary"></div>
+
+        <div class="sd-layout">
+          <div class="sd-main panel">
+            <div id="sdCalendarView">
+              <div class="cal-legend">
+                <span>매출 없음</span>
+                <span class="lv1">적음</span>
+                <span class="lv3">보통</span>
+                <span class="lv4">많음</span>
+              </div>
+              <div id="sdCalendarGrid" class="sales-calendar"></div>
+            </div>
+            <div id="sdMonthlyView" class="hidden">
+              <div id="sdMonthlyChart"></div>
+            </div>
+          </div>
+          <div class="sd-side panel">
+            <h3>일별 상세</h3>
+            <div id="sdDayDetail"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 매점매출상세 -->
+      <section id="view-daily-sales" class="view">
+        <header class="page-header row">
+          <div>
+            <h2>매점매출상세</h2>
+            <p id="dailySalesTitle">매점 일별 매출 · 건별 취소</p>
+          </div>
+          <div class="header-actions">
+            <button type="button" class="btn" id="dailySalesPrev">◀</button>
+            <input type="date" id="dailySalesDate" class="input">
+            <button type="button" class="btn" id="dailySalesNext">▶</button>
+            <button type="button" class="btn" id="dailySalesToday">오늘</button>
+            <select id="dailySalesSource" class="input">
+              <option value="">전체</option>
+              <option value="excel">엑셀</option>
+              <option value="pos">POS</option>
+            </select>
+          </div>
+        </header>
+        <div class="stats-grid" id="dailySalesStats"></div>
+        <div id="dailySalesList" class="daily-sales-list"></div>
+      </section>
+
+      <!-- 매출내역 -->
+      <section id="view-sales" class="view">
+        <header class="page-header row">
+          <div>
+            <h2>매출내역</h2>
+            <p>POS 결제 기록</p>
+          </div>
+          <div class="header-actions">
+            <input type="date" id="salesFilterDate" class="input">
+            <select id="salesFilterSource" class="input">
+              <option value="">전체</option>
+              <option value="excel">엑셀 매출</option>
+              <option value="pos">POS 매출</option>
+            </select>
+            <button class="btn danger" id="btnClearSales">선택일 매출 삭제</button>
+          </div>
+        </header>
+        <div class="stats-grid" id="salesStats"></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>구분</th>
+                <th>시간</th>
+                <th>상품</th>
+                <th>수량</th>
+                <th>금액</th>
+                <th>합계</th>
+              </tr>
+            </thead>
+            <tbody id="salesBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 설정 -->
+      <section id="view-settings" class="view">
+        <header class="page-header">
+          <h2>설정</h2>
+          <p>데이터 백업 및 복원</p>
+        </header>
+        <div class="settings-grid">
+          <div class="panel">
+            <h3>데이터 백업</h3>
+            <p>예약, 상품, 매출 데이터를 JSON 파일로 내보냅니다.</p>
+            <button class="btn primary" id="btnExportData">백업 다운로드</button>
+          </div>
+          <div class="panel">
+            <h3>데이터 복원</h3>
+            <p>백업 JSON 파일을 불러옵니다.</p>
+            <input type="file" id="importDataFile" accept=".json" hidden>
+            <button class="btn" id="btnImportData">백업 불러오기</button>
+          </div>
+          <div class="panel">
+            <h3>엑셀 기준 초기화</h3>
+            <p>상품·카테고리·매출을 엑셀 파일 기준으로 되돌립니다. 예약 데이터는 유지됩니다.</p>
+            <button class="btn danger" id="btnResetAll">엑셀 기준 초기화</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 예약 모달 -->
+  <dialog id="reservationModal" class="modal">
+    <form id="reservationForm" method="dialog">
+      <div class="modal-header">
+        <h3 id="resModalTitle">예약 추가</h3>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <div class="modal-body grid-2">
+        <label>사이트번호
+          <select name="siteNumber" id="resSiteNumber" required></select>
+        </label>
+        <label>타입
+          <input name="type" id="resType" readonly>
+        </label>
+        <label>이용객
+          <input name="guest" required placeholder="이름">
+        </label>
+        <label>연락처
+          <input name="contact" required placeholder="010-0000-0000">
+        </label>
+        <label>입실일
+          <input type="date" name="checkInDate" required>
+        </label>
+        <label>몇박
+          <input type="number" name="nights" id="resNights" min="1" value="1" required>
+        </label>
+        <label>추가인원
+          <input type="number" name="extraGuests" id="resExtraGuests" min="0" value="0">
+          <small id="resExtraGuestHint" class="field-hint"></small>
+        </label>
+        <label>입금가
+          <input type="number" name="deposit" id="resDeposit" min="0" placeholder="0">
+        </label>
+        <label>결제여부
+          <select name="paid">
+            <option value="미결제">미결제</option>
+            <option value="완료">완료</option>
+            <option value="부분">부분</option>
+          </select>
+        </label>
+        <label>입실여부
+          <select name="checkedIn">
+            <option value="미입실">미입실</option>
+            <option value="입실완료">입실완료</option>
+            <option value="퇴실">퇴실</option>
+          </select>
+        </label>
+        <label class="full">특이사항
+          <textarea name="notes" rows="2" placeholder="특이사항"></textarea>
+        </label>
+        <label class="full">기타
+          <textarea name="etc" rows="2" placeholder="기타 메모"></textarea>
+        </label>
+      </div>
+      <div class="modal-footer modal-footer-split">
+        <button type="button" class="btn danger hidden" id="btnCancelReservation">예약 취소</button>
+        <div class="modal-footer-actions">
+          <button type="button" class="btn" data-close>닫기</button>
+          <button type="submit" class="btn primary">저장</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 상품 모달 -->
+  <dialog id="productModal" class="modal">
+    <form id="productForm" method="dialog">
+      <div class="modal-header">
+        <h3 id="productModalTitle">상품 추가</h3>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <div class="modal-body grid-2">
+        <label>카테고리
+          <select name="category" id="productCategorySelect" required></select>
+        </label>
+        <label>상품명
+          <input name="name" required>
+        </label>
+        <label>가격
+          <input type="number" name="price" min="0" required>
+        </label>
+        <label>비고
+          <input name="note">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-close>취소</button>
+        <button type="submit" class="btn primary">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 카테고리 모달 -->
+  <dialog id="categoryModal" class="modal">
+    <form id="categoryForm" method="dialog">
+      <div class="modal-header">
+        <h3 id="categoryModalTitle">카테고리 추가</h3>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <div class="modal-body">
+        <label>카테고리명
+          <input name="name" required placeholder="예: 숯/바베큐용품">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-close>취소</button>
+        <button type="submit" class="btn primary">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 사이트 모달 -->
+  <dialog id="siteModal" class="modal">
+    <form id="siteForm" method="dialog">
+      <div class="modal-header">
+        <h3 id="siteModalTitle">사이트 추가</h3>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <div class="modal-body grid-2">
+        <label>사이트번호
+          <input name="number" required placeholder="예: 11, D1">
+        </label>
+        <label>타입
+          <select name="type" id="siteFormType" required></select>
+        </label>
+        <label>가격 (1박)
+          <input type="number" name="price" min="0" value="90000">
+        </label>
+        <label class="full checkbox-label">
+          <input type="checkbox" name="active" checked> 사용 (예약·현황에 표시)
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-close>취소</button>
+        <button type="submit" class="btn primary">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 사이트 타입 모달 -->
+  <dialog id="siteTypeModal" class="modal">
+    <form id="siteTypeForm" method="dialog">
+      <div class="modal-header">
+        <h3 id="siteTypeModalTitle">타입 추가</h3>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <div class="modal-body">
+        <label>타입명
+          <input name="name" required placeholder="예: 렌탈">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-close>취소</button>
+        <button type="submit" class="btn primary">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input type="file" id="excelImportFile" accept=".xlsx,.xls" hidden>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script src="js/excel-catalog.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/excel-import.js"></script>
+  <script src="js/categories.js"></script>
+  <script src="js/reservations.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/pos.js"></script>
+  <script src="js/legacy-sales.js"></script>
+  <script src="js/sales-dashboard.js"></script>
+  <script src="js/daily-sales.js"></script>
+  <script src="js/site-admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
