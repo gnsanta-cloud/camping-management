@@ -74,6 +74,15 @@ html, body {
 
 .site-legend {
   margin-bottom: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.site-legend .sync-status {
+  margin-left: auto;
+  font-size: 0.72rem;
 }
 
 .mobile-footer {

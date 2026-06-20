@@ -42,30 +42,18 @@ const App = {
 
     this.renderAll();
     this.registerServiceWorker();
-    this.updateFirebaseSettings();
+    this.updateJsonBinSettings();
     window.addEventListener("camping-data-sync", () => this.onDataSync());
   },
 
-  updateFirebaseSettings() {
-    const panel = document.getElementById("firebaseSettingsPanel");
-    const emailEl = document.getElementById("firebaseUserEmail");
-    const logoutBtn = document.getElementById("firebaseLogoutBtn");
-    if (!panel) return;
-
-    if (!FirebaseSync.isConfigured()) {
-      const desc = document.getElementById("firebaseSettingsDesc");
-      if (desc) {
-        desc.textContent =
-          "Firebase 미설정 — js/firebase-config.js 를 설정하면 PC·폰 자동 동기화가 활성화됩니다.";
-      }
-      if (logoutBtn) logoutBtn.classList.add("hidden");
-      if (emailEl) emailEl.textContent = "";
-      return;
+  updateJsonBinSettings() {
+    const connected = JSONBinSync.isConfigured();
+    const desc = document.getElementById("jsonbinSettingsDesc");
+    if (desc) {
+      desc.textContent = connected
+        ? "JSONBin에 연결됨 — PC·폰에서 같은 Bin ID·Key를 사용하세요."
+        : "Bin ID와 Access Key를 입력하면 PC·폰 데이터가 자동 동기화됩니다.";
     }
-
-    const user = typeof firebase !== "undefined" ? firebase.auth()?.currentUser : null;
-    if (emailEl) emailEl.textContent = user ? `로그인: ${user.email}` : "";
-    if (logoutBtn) logoutBtn.classList.toggle("hidden", !user);
   },
 
   onDataSync() {
@@ -77,7 +65,7 @@ const App = {
     if (typeof SalesDashboard !== "undefined") SalesDashboard.render();
     if (typeof DailySales !== "undefined") DailySales.render();
     if (typeof POS !== "undefined") POS.render();
-    this.updateFirebaseSettings();
+    this.updateJsonBinSettings();
   },
 
   registerServiceWorker() {
@@ -223,6 +211,6 @@ function showToast(msg) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await FirebaseSync.bootstrap();
+  await JSONBinSync.bootstrap();
   App.init();
 });

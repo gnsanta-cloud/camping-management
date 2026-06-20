@@ -23,6 +23,10 @@ const MobileApp = {
       Sites.render();
     });
 
+    document.getElementById("btnSyncSettings")?.addEventListener("click", () => {
+      document.getElementById("syncSettingsModal")?.showModal();
+    });
+
     Reservations.init();
     Sites.init();
     Sites.render();
@@ -49,7 +53,7 @@ const MobileApp = {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await FirebaseSync.bootstrap();
+  await JSONBinSync.bootstrap();
   MobileApp.init();
 });
 

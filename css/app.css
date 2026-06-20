@@ -1068,10 +1068,30 @@ body {
 
 .grid-2 label.full { grid-column: 1 / -1; }
 
+.jsonbin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+
+.jsonbin-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
 .field-hint {
   font-size: 0.78rem;
   color: var(--muted);
   margin-top: 0.15rem;
+}
+
+.field-hint a {
+  color: var(--primary);
 }
 
 .tab-desc {

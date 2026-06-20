@@ -1,4 +1,4 @@
-const CACHE_NAME = "camping-pwa-v2";
+const CACHE_NAME = "camping-pwa-v3";
 
 const PRECACHE = [
   "./",
@@ -12,6 +12,8 @@ const PRECACHE = [
   "./icons/icon-512.png",
   "./js/config.js",
   "./js/storage.js",
+  "./js/jsonbin-config.js",
+  "./js/jsonbin-sync.js",
   "./js/mobile-sites-app.js",
   "./js/excel-catalog.js",
   "./js/excel-import.js",

@@ -25,6 +25,7 @@
           <p id="todayLabel"></p>
         </div>
         <div class="header-actions">
+          <button type="button" class="btn sm" id="btnSyncSettings" title="동기화 설정">☁️</button>
           <button type="button" class="btn sm" id="btnToday">오늘</button>
           <input type="date" id="siteViewDate" class="input">
         </div>
@@ -33,6 +34,7 @@
         <span class="legend-item vacant">빈 사이트</span>
         <span class="legend-item reserved">예약됨</span>
         <span class="legend-item checked-in">입실완료</span>
+        <small id="syncStatus" class="sync-status" data-tone="muted">로컬 저장</small>
       </div>
     </header>
 
@@ -42,6 +44,7 @@
 
     <footer class="mobile-footer">
       사이트 탭 → 예약 추가 · 수정 · 취소<br>
+      ☁️ 버튼 → JSONBin 동기화 설정 (PC와 같은 Bin ID·Key)<br>
       <a href="./index.html">전체 관리 앱 열기</a>
     </footer>
   </div>
@@ -109,31 +112,33 @@
     </form>
   </dialog>
 
-  <div id="toast" class="toast"></div>
-
-  <div id="firebaseAuthOverlay" class="firebase-auth hidden">
-    <div class="firebase-auth-card">
-      <h2>캠핑장 로그인</h2>
-      <p>PC·스마트폰 데이터 자동 동기화</p>
-      <form id="firebaseAuthForm">
-        <label>이메일<input type="email" id="firebaseEmail" class="input" required></label>
-        <label>비밀번호<input type="password" id="firebasePassword" class="input" required></label>
-        <p id="firebaseAuthError" class="firebase-auth-error"></p>
-        <div class="firebase-auth-actions">
-          <button type="submit" class="btn primary">로그인</button>
-          <button type="button" class="btn" id="firebaseRegisterBtn">계정 만들기</button>
+  <dialog id="syncSettingsModal" class="modal">
+    <div class="modal-header">
+      <h3>JSONBin 동기화</h3>
+      <button type="button" class="icon-btn" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <p id="jsonbinSettingsDesc">PC와 같은 Bin ID·Access Key를 입력하세요.</p>
+      <form id="jsonbinSettingsForm" class="jsonbin-form">
+        <label>Bin ID<input name="binId" id="jsonbinBinId" class="input" placeholder="예: 65abc123..." autocomplete="off"></label>
+        <label>Access Key<input name="accessKey" id="jsonbinAccessKey" class="input" type="password" placeholder="JSONBin Access Key" autocomplete="off"></label>
+        <div class="jsonbin-form-actions">
+          <button type="submit" class="btn primary">연결</button>
+          <button type="button" class="btn" id="btnJsonBinPull">불러오기</button>
+          <button type="button" class="btn" id="btnJsonBinPush">업로드</button>
+          <button type="button" class="btn danger" id="btnJsonBinDisconnect">해제</button>
         </div>
       </form>
+      <p class="sync-email" id="jsonbinLastSync"></p>
     </div>
-  </div>
+  </dialog>
 
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-  <script src="js/firebase-config.js"></script>
+  <div id="toast" class="toast"></div>
+
+  <script src="js/jsonbin-config.js"></script>
   <script src="js/config.js"></script>
   <script src="js/storage.js"></script>
-  <script src="js/firebase-sync.js"></script>
+  <script src="js/jsonbin-sync.js"></script>
   <script src="js/reservations.js"></script>
   <script src="js/mobile-sites-app.js"></script>
 </body>
