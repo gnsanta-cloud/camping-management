@@ -55,6 +55,15 @@ if (-not $SkipLogin) {
     Write-Step 2 "Google login (browser approval required once)"
     Write-Host "Browser opens automatically. Click Allow / Continue." -ForegroundColor Yellow
     & $Clasp login
+    if ($LASTEXITCODE -ne 0 -or -not (Test-Path "$env:USERPROFILE\.clasprc.json")) {
+        throw @"
+Google login failed.
+- Check internet connection and try again.
+- Run setup-google-sheets.cmd again and click Allow in the browser.
+- If it keeps failing, run in PowerShell: clasp login --no-localhost
+  Then paste the full localhost URL from the browser when prompted.
+"@
+    }
 }
 
 Write-Step 3 "Create spreadsheet and Apps Script project"
