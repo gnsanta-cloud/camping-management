@@ -4,12 +4,45 @@
 
 ## GitHub Pages 배포
 
-1. GitHub에 새 저장소 생성
-2. 이 폴더 내용 push (`*.xlsx`는 `.gitignore`로 제외됨)
-3. 저장소 **Settings → Pages → Build and deployment**
-   - Source: **Deploy from a branch**
-   - Branch: **main** / **/(root)**
-4. 배포 URL: `https://<사용자>.github.io/<저장소명>/`
+### 한 번에 배포 (권장)
+
+1. [Git for Windows](https://git-scm.com/download/win) · [GitHub CLI](https://cli.github.com/) 설치
+2. PowerShell:
+
+```powershell
+cd d:\Camping
+.\scripts\publish-github.ps1
+```
+
+3. 브라우저 GitHub 로그인 승인
+4. 배포 URL: `https://<GitHub아이디>.github.io/camping-management/`
+
+저장소 이름 변경:
+
+```powershell
+.\scripts\publish-github.ps1 -RepoName "원하는-저장소명"
+```
+
+비공개 저장소:
+
+```powershell
+.\scripts\publish-github.ps1 -Private
+```
+
+> **참고:** 비공개 저장소도 GitHub Pages URL은 공개 접속될 수 있습니다. 민감 데이터는 로그인·백엔드 연동 후 사용하세요.
+
+### 수동 배포
+
+1. GitHub에서 새 저장소 생성
+2. push:
+
+```powershell
+cd d:\Camping
+git remote add origin https://github.com/<사용자>/<저장소>.git
+git push -u origin main
+```
+
+3. 저장소 **Settings → Pages → main / (root)**
 
 ## PWA 설치 (스마트폰)
 
